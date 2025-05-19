@@ -21,11 +21,11 @@ public class Client {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String name;
-    Long cpf;
-    String email;
-    String celular;
-    Date created_at;
-    Date born_date;
+    private Long id;
+    private String name;
+    private Long cpf;
+    private String email;
+    private String celular;
+    private Date created_at;
+    private Date born_date;
 }
