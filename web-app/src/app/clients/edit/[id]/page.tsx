@@ -11,11 +11,44 @@ export default function CategoryEdit() {
     <Edit saveButtonProps={saveButtonProps}>
       <Form {...formProps} layout="vertical">
         <Form.Item
-          label={"Title"}
-          name={["title"]}
+          label={"Nome"}
+          name={["name"]}
           rules={[
             {
               required: true,
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label={"Cpf"}
+          name={["cpf"]}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label={"Celular"}
+          name={["mobile_phone"]}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label={"E-Mail"}
+          name={["email"]}
+          rules={[
+            {
+              required: false,
             },
           ]}
         >

@@ -18,14 +18,14 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 public class Client {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private Long cpf;
-    private String email;
-    private String celular;
-    private Date created_at;
+    private String mobile_phone;
     private Date born_date;
+    private String email;
+    private Date created_at;
 }

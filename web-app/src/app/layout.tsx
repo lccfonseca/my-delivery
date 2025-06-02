@@ -82,7 +82,7 @@ export default function RootLayout({
                       warnWhenUnsavedChanges: true,
                       useNewQueryKeys: true,
                       projectId: "nKI1ju-Dx0yUc-IKdDZ4",
-                      title: { text: "Refine Project", icon: <AppIcon /> },
+                      title: { text: "My Delivery", icon: <AppIcon /> },
                     }}
                   >
                     {children}
