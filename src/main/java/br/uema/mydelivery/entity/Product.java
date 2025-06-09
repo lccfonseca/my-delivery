@@ -16,13 +16,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-public class City {
-
+public class Product {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String state;
-    private Double latitude;
-    private Double longitude;
+    private String description;
+    private Double price;
+    private boolean is_available;
+    private String bar_code;
 }

@@ -36,10 +36,10 @@ public class OrderController {
     }
     
     @PostMapping
-    public ResponseEntity create(@RequestBody Order contato) {
+    public ResponseEntity create(@RequestBody Order e) {
         return ResponseEntity
                 .ok()
-                .body(service.save(contato));
+                .body(service.save(e));
     }
     
 }
