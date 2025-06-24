@@ -20,6 +20,4 @@ public interface IBaseService<T> {
     T update(T request) throws IOException;
 
     void deleteById(String id) throws NotFoundException, IOException;
-
-    String test();
 }

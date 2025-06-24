@@ -13,17 +13,19 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 @Component
-public abstract class BaseController <E, S extends IBaseService <E>> {
+public abstract class BaseController<E, S extends IBaseService<E>> {
 
     @Autowired
     S service;
 
-    @PostMapping
-    public ResponseEntity<E> create(@RequestBody @Valid E dto) {
+    @GetMapping
+    public ResponseEntity<Page<E>> listAll(Pageable pageable) {
         try {
-            E created = service.create(dto);
-            return new ResponseEntity<>(created, HttpStatus.CREATED);
-        } catch (IOException e) {
+            Page<E> result = service.listAll(pageable);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (BadRequestException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -40,14 +42,22 @@ public abstract class BaseController <E, S extends IBaseService <E>> {
         }
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<Page<E>> listAll(Pageable pageable) {
+    @PostMapping
+    public ResponseEntity<E> create(@RequestBody @Valid E dto) {
         try {
-            Page<E> result = service.listAll(pageable);
-            return new ResponseEntity<>(result, HttpStatus.OK);
-        } catch (BadRequestException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        } catch (Exception e) {
+            E created = service.create(dto);
+            return new ResponseEntity<>(created, HttpStatus.CREATED);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PutMapping
+    public ResponseEntity<E> updateById(@RequestBody @Valid E dto) {
+        try {
+            E updated = service.update(dto);
+            return new ResponseEntity<>(updated, HttpStatus.OK);
+        } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -64,13 +74,4 @@ public abstract class BaseController <E, S extends IBaseService <E>> {
         }
     }
 
-    @PutMapping
-    public ResponseEntity<E> updateById(@RequestBody @Valid E dto) {
-        try {
-            E updated = service.update(dto);
-            return new ResponseEntity<>(updated, HttpStatus.OK);
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
 }

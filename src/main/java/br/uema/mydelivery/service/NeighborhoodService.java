@@ -24,7 +24,7 @@ public class NeighborhoodService implements IBaseService<Neighborhood> {
 
     @Override
     public Neighborhood create(Neighborhood request) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return repository.save(request);
     }
 
     @Override
@@ -43,17 +43,11 @@ public class NeighborhoodService implements IBaseService<Neighborhood> {
 
     @Override
     public Neighborhood update(Neighborhood request) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.create(request);
     }
 
     @Override
     public void deleteById(String id) throws NotFoundException, IOException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String test() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
+    }    
 }
