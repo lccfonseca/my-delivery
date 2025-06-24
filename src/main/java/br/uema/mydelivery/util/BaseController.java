@@ -1,7 +1,5 @@
-package com.hapvida.dentalsales.backoffice.api;
+package br.uema.mydelivery.util;
 
-import com.hapvida.dentalsales.backoffice.core.usecase.IBaseUseCase;
-import com.hapvida.dentalsales.backoffice.domain.exceptions.NotFoundException;
 import jakarta.validation.Valid;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +13,15 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 @Component
-public abstract class BaseController <T, E extends IBaseUseCase <T>> {
+public abstract class BaseController <E, S extends IBaseService <E>> {
 
     @Autowired
-    E service;
+    S service;
 
     @PostMapping
-    public ResponseEntity<T> create(@RequestBody @Valid T dto) {
+    public ResponseEntity<E> create(@RequestBody @Valid E dto) {
         try {
-            T created = service.create(dto);
+            E created = service.create(dto);
             return new ResponseEntity<>(created, HttpStatus.CREATED);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -31,9 +29,9 @@ public abstract class BaseController <T, E extends IBaseUseCase <T>> {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<T> getById(@PathVariable("id") String id) {
+    public ResponseEntity<E> getById(@PathVariable("id") String id) {
         try {
-            T dto = service.getById(id);
+            E dto = service.getById(id);
             return new ResponseEntity<>(dto, HttpStatus.OK);
         } catch (NotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -43,9 +41,9 @@ public abstract class BaseController <T, E extends IBaseUseCase <T>> {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<Page<T>> listAll(Pageable pageable) {
+    public ResponseEntity<Page<E>> listAll(Pageable pageable) {
         try {
-            Page<T> result = service.listAll(pageable);
+            Page<E> result = service.listAll(pageable);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (BadRequestException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -67,9 +65,9 @@ public abstract class BaseController <T, E extends IBaseUseCase <T>> {
     }
 
     @PutMapping
-    public ResponseEntity<T> updateById(@RequestBody @Valid T dto) {
+    public ResponseEntity<E> updateById(@RequestBody @Valid E dto) {
         try {
-            T updated = service.update(dto);
+            E updated = service.update(dto);
             return new ResponseEntity<>(updated, HttpStatus.OK);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
