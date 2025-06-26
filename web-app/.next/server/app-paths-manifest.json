@@ -1,7 +1,0 @@
-{
-  "/clients/page": "app/clients/page.js",
-  "/clients/create/page": "app/clients/create/page.js",
-  "/neighborhoods/page": "app/neighborhoods/page.js",
-  "/neighborhoods/create/page": "app/neighborhoods/create/page.js",
-  "/neighborhoods/edit/[id]/page": "app/neighborhoods/edit/[id]/page.js"
-}
