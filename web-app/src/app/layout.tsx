@@ -7,7 +7,7 @@ import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 import { ThemedTitleV2, useNotificationProvider } from "@refinedev/antd";
 import routerProvider from "@refinedev/nextjs-router";
 
-import { dataProvider } from "@providers/data-provider";
+import { dataProvider, dataProvider1 } from "@providers/data-provider";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import "@refinedev/antd/dist/reset.css";
 import { AppIcon } from "@components/app-icon";
@@ -72,6 +72,16 @@ export default function RootLayout({
                         create: "/clients/create",
                         edit: "/clients/edit/:id",
                         show: "/clients/show/:id",
+                        meta: {
+                          canDelete: true,
+                        },
+                      },
+                      {
+                        name: "neighborhood",
+                        list: "/neighborhoods",
+                        create: "/neighborhoods/create",
+                        edit: "/neighborhoods/edit/:id",
+                        show: "/neighborhoods/show/:id",
                         meta: {
                           canDelete: true,
                         },

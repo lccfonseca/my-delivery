@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @Component
 public abstract class BaseController<E, S extends IBaseService<E>> {
@@ -19,9 +20,21 @@ public abstract class BaseController<E, S extends IBaseService<E>> {
     S service;
 
     @GetMapping
-    public ResponseEntity<Page<E>> listAll(Pageable pageable) {
+    public ResponseEntity<Page<E>> listAllToPage(Pageable pageable) {
         try {
-            Page<E> result = service.listAll(pageable);
+            Page<E> result = service.listAllToPage(pageable);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (BadRequestException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
+    @GetMapping("/list")
+    public ResponseEntity<List<E>> listAllToList() {
+        try {
+            List<E> result = service.listAllToList();
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (BadRequestException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -31,7 +44,7 @@ public abstract class BaseController<E, S extends IBaseService<E>> {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<E> getById(@PathVariable("id") String id) {
+    public ResponseEntity<E> getById(@PathVariable("id") Long id) {
         try {
             E dto = service.getById(id);
             return new ResponseEntity<>(dto, HttpStatus.OK);
@@ -63,7 +76,7 @@ public abstract class BaseController<E, S extends IBaseService<E>> {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable("id") String id) {
+    public ResponseEntity<Void> deleteById(@PathVariable("id") Long id) {
         try {
             service.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

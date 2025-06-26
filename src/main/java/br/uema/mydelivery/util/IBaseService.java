@@ -1,6 +1,7 @@
 package br.uema.mydelivery.util;
 
 import java.io.IOException;
+import java.util.List;
 import org.apache.coyote.BadRequestException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,11 +14,13 @@ public interface IBaseService<T> {
 
     T create(T request) throws IOException;
 
-    T getById(String id) throws NotFoundException;
+    T getById(Long id) throws NotFoundException;
 
-    Page<T> listAll(Pageable pageable) throws BadRequestException;
+    Page<T> listAllToPage(Pageable pageable) throws BadRequestException;
+    
+    List<T> listAllToList() throws BadRequestException;
 
     T update(T request) throws IOException;
 
-    void deleteById(String id) throws NotFoundException, IOException;
+    void deleteById(Long id) throws NotFoundException, IOException;
 }
